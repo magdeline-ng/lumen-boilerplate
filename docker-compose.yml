@@ -5,6 +5,8 @@ services:
     image: nginx:alpine
     restart: unless-stopped
     tty: true
+    container_name: web
+    hostname: web
     ports:
       - "80:80"
       - "443:443"
@@ -20,6 +22,8 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     tty: true
+    container_name: app
+    hostname: app
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
@@ -36,9 +40,12 @@ services:
   db:
     image: mysql:5.7
     restart: unless-stopped
+    container_name: mysql
+    hostname: mysql
     tty: true
     ports:
       - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_DATABASE: lumen
       MYSQL_ROOT_PASSWORD: root
