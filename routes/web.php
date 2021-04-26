@@ -16,3 +16,16 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+//Authentication
+// API route group
+$router->group(['prefix' => 'auth'], function () use ($router) {
+    // Matches "/auth/register
+    $router->post('register', 'AuthController@register');
+    // Matches "/auth/authenticate
+    $router->post('login', 'AuthController@login');
+    $router->post('logout', 'AuthController@logout');
+    $router->post('refresh', 'AuthController@refresh');
+    $router->post('user-profile', 'AuthController@userProfile');
+});
